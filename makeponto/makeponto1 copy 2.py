@@ -6,7 +6,6 @@ from datetime import datetime, timedelta
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import requests 
-from function_operations import process_data_fetched, process_status_ponto, calculateAwaitToClick, calculateTimeToClick
 # Set up the WebDriver for Chrome
 
 config = configparser.ConfigParser()
@@ -35,24 +34,12 @@ driver = webdriver.Chrome()
 username = config.get('credentials', 'username')
 password = config.get('credentials', 'password')
 
-linkLoginPonto = config.get('credentials', 'linkLoginPonto')
-loginEndpoint = config.get('credentials', 'urlLogin')
-urlSetting = config.get('credentials', 'urlSetting')
-
+urlLogin = config.get('credentials', 'urlLogin')
 email = config.get('credentials', 'email')
 senha = config.get('credentials', 'senha')
-definedTimefixed = config.get('credentials', 'definedTime')
-
-isProd = config.get('credentials', 'isProd')
-
-#get ambient to comunicate
-if isProd == 'no':  # Replace this condition with something that determines dev vs. prod
-    baseUrl = config.get('credentials', 'urlBaseDev')
-else:
-    baseUrl = config.get('credentials', 'urlBaseProd')
-
+averageTimefixed = config.get('credentials', 'averageTime')
 # Open a web page (for example, Google)
-driver.get(linkLoginPonto)
+driver.get("https://intranet.acpgroup.com.br/ControleAcesso/Seguranca/Login?ReturnUrl=%2fhoras")
 time.sleep(2)
 
 # perform actions group 
@@ -88,7 +75,7 @@ def fetch_data_from_api(url,token): #must be authenticated
     return data
 
 def authenticate_and_get_token():
-    url = baseUrl + loginEndpoint
+    url = urlLogin
     headers = {"Content-Type": "application/json"}
     data = {"email": email, "senha": senha }
     response = requests.post(url, json=data, headers=headers)
@@ -101,8 +88,40 @@ def authenticate_and_get_token():
 
 # functions of low order groups 
 
+def process_data_fetched(settings):
+    reference_time_str = '08:00:00'# see if is what i want
+    reference_time = datetime.strptime(reference_time_str, '%H:%M:%S')
 
-# action selenium functions 
+    for setting in settings:
+        if setting['type'] == 'time1' and setting['status']:
+            time_value = setting['overrideTime'] if setting['overrideTime'] else setting['defaultTime']
+            time_value_dt = datetime.strptime(time_value, '%H:%M:%S')
+
+            time_difference = time_value_dt - reference_time
+            minutes_difference = int(time_difference.total_seconds() / 60)
+
+            return minutes_difference
+        
+    return None
+
+def process_data_fetched2(settings,myType):
+
+    for setting in settings:
+        if setting['type'] == myType and setting['status']:
+
+            return True
+        
+    return None
+
+def calculateAwaitToClick(value):
+    # Get the current time
+    current_time = datetime.now()
+    
+    new_time = current_time + timedelta(minutes=value)
+    
+    time_difference = new_time - current_time
+
+    return int(time_difference.total_seconds())
 
 def get_value_after_login(driver):
     
@@ -130,6 +149,16 @@ def get_value_after_login(driver):
             continue
 
     return None
+
+
+
+def calculateTimeToClick(average):
+    average_in_seconds = average * 60
+    random_variation = random.uniform(0, 15) * 60
+    total_time = average_in_seconds + random_variation
+    return total_time
+
+# action selenium functions 
 def click_submit_button(driver):
     password_field2 = driver.find_element(By.ID, "btn-registrar") 
     password_field2.click()
@@ -160,17 +189,18 @@ def makeponto4(our_str):
 
     try:
         token = authenticate_and_get_token()  # Authenticate and retrieve token
-        url = baseUrl+urlSetting    
+        url = "http://localhost:8080/api/records/settings"    
         data_fetched = fetch_data_from_api(url, token)
-        statusPonto = process_status_ponto(data_fetched,vtype)
+        averageTime = process_data_fetched2(data_fetched,vtype)
 
-        if statusPonto:
+        if averageTime:
             perform_actions4(driver)
 
     except requests.exceptions.RequestException as e:
         print(f"API is not reachable, using default settings: {e}")
        
-        perform_actions4(driver)
+        if averageTime:
+            perform_actions4(driver)
 
     except Exception as e:
         print(e)
@@ -186,17 +216,18 @@ def makeponto2e3(our_str):
 
     try:
         token = authenticate_and_get_token()  # Authenticate and retrieve token
-        url = baseUrl+urlSetting    
+        url = "http://localhost:8080/api/records/settings"    
         data_fetched = fetch_data_from_api(url, token)
-        statusPonto = process_status_ponto(data_fetched,vtype)
+        averageTime = process_data_fetched2(data_fetched,vtype)
 
-        if statusPonto:
+        if averageTime:
             perform_actions2e3(driver)
 
     except requests.exceptions.RequestException as e:
         print(f"API is not reachable, using default settings: {e}")
 
-        perform_actions2e3(driver)
+        if averageTime:
+            perform_actions2e3(driver)
 
     except Exception as e:
         print(e)
@@ -207,18 +238,18 @@ def makeponto2e3(our_str):
 def makeponto1():
     try:
         token = authenticate_and_get_token()  # Authenticate and retrieve token
-        url = baseUrl+urlSetting    
+        url = "http://localhost:8080/api/records/settings"    
         data_fetched = fetch_data_from_api(url, token)
-        timeDefined = process_data_fetched(data_fetched)
+        averageTime = process_data_fetched(data_fetched)
 
-        if timeDefined:
-            perform_actions(driver, timeDefined)
+        if averageTime:
+            perform_actions(driver, averageTime)
 
     except requests.exceptions.RequestException as e:
         print(f"API is not reachable, using default settings: {e}")
-
-
-        perform_actions(driver, definedTimefixed)
+        averageTime = int(averageTimefixed)
+        if averageTime:
+            perform_actions(driver, averageTime)
 
     except Exception as e:
         print(e)
@@ -230,8 +261,8 @@ def makeponto1():
 
 def main(driver):
 
-
-    #makeponto1()
+    hour_strt = '08'
+    makeponto1(hour_strt)
 
 
     if hour_str == '08':
