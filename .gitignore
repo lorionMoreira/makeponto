@@ -1,2 +1,6 @@
 makeponto/config
 appfrontend/makepontoapp/node_modules
+/makeponto/backend/src/main/resources/application-dev
+/makeponto/backend/src/main/resources/application-prod
+/makeponto/backend/src/main/resources/application-test
+
