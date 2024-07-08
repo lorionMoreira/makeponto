@@ -5,11 +5,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AuthContext } from '../store/auth-context';
 
 function WelcomeScreen() {
-  const [fetchedMessage, setFetchedMesssage] = useState('');
+  const [fetchedMessage, setFetchedMesssage] = useState({});
 
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
-
+  /*
   useEffect(() => {
     axios
       .get(
@@ -20,12 +20,25 @@ function WelcomeScreen() {
         setFetchedMesssage(response.data);
       });
   }, [token]);
+  */
+
+  useEffect(() => {
+    axios.get('http://myec2dinamic.zapto.org:8080/api/records/settings', {
+      headers: {
+        Authorization: `${token}`  // Include the token in the Authorization header
+      }
+    })
+    .then((response) => {
+      setFetchedMesssage(response.data);
+      console.log(response.data)
+    });
+  }, [token]);
 
   return (
     <View style={styles.rootContainer}>
       <Text style={styles.title}>Welcome!</Text>
       <Text>You authenticated successfully!</Text>
-      <Text>{fetchedMessage}</Text>
+      <Text>ola</Text>
     </View>
   );
 }

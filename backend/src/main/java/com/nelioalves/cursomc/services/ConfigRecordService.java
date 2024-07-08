@@ -19,18 +19,23 @@ public class ConfigRecordService {
         this.configRecordRepository = configRecordRepository;
     }
 
+    //get information of the database
     public List<ConfigRecord> getAllConfigRecords() {
 
         return configRecordRepository.findAll();
     }
+
+    // disable all the automations
     public int disableAllAutomations() {
         return configRecordRepository.disableAllAutomations();
     }
 
+    //disable by type
     public int disableAutomationByType(String type) {
         return configRecordRepository.disableAutomationByType(type);
     }
 
+    // change the default hour to execute the automation
     public int changeOverrideTimeByType(String type, String overrideTime) throws Exception {
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         Time time = new Time(format.parse(overrideTime).getTime());
