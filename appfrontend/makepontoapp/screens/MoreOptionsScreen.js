@@ -55,13 +55,18 @@ function MoreOptionsScreen({ navigation }) {
   return (
     <View style={styles.rootContainer}>
       <Text style={styles.title}>O sistema está conectado</Text>
-      <Button onPress={btnDisableOneHour}>
-        Escolher cancelamento
-      </Button>
-      <Button onPress={btnDisableOneHour}>
-        Mudar 1° horário
-      </Button>
-
+      <View style={styles.buttonsContainer}>
+        <View style={styles.button}>
+          <Button onPress={btnDisableOneHour}>
+            Escolher cancelamento
+          </Button>
+        </View>
+        <View style={styles.button}>
+          <Button onPress={btnDisableOneHour}>
+            Mudar 1° horário
+          </Button>
+        </View>
+      </View>
     </View>
   );
 }
@@ -76,8 +81,17 @@ const styles = StyleSheet.create({
     padding: 32,
   },
   title: {
+    flex: 1,
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: 1,
   },
+  buttonsContainer: {
+    flex: 2, // This allocates 2 parts of the space to the buttons
+    width: '100%', // Ensures the buttons container uses the full width available
+    
+  },
+  button: {
+    marginBottom: 20, // Adds a margin to the bottom of each button
+  }
 });

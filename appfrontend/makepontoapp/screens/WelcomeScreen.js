@@ -55,19 +55,26 @@ function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.rootContainer}>
       <Text style={styles.title}>O sistema está conectado</Text>
-      <Button onPress={btnDisableOneHour}>
-        Cancelar 1
-      </Button>
-      <Button onPress={btnDelayOneHour}>
-        Atrasar 1 hora
-      </Button>
-      <Button onPress={btnDisableAll}>
-        Desabilitar todos
-      </Button>
-      <Button onPress={btnMoreOptions}>
-        Mais opções
-      </Button>
-
+      <View style={styles.buttonsContainer}>
+        <View style={styles.button}>
+          <Button onPress={btnDisableOneHour} style={styles.button}>
+            Cancelar 1
+          </Button>
+        </View>
+        <View style={styles.button}>
+          <Button onPress={btnDelayOneHour} style={styles.button}>
+            Atrasar 1 hora
+          </Button>
+        </View>
+        <View style={styles.button}>
+          <Button onPress={btnDisableAll} style={styles.button}>
+            Desabilitar todos
+          </Button>
+        </View>
+        <Button onPress={btnMoreOptions} style={styles.button}>
+          Mais opções
+        </Button>
+      </View>
     </View>
   );
 }
@@ -82,8 +89,17 @@ const styles = StyleSheet.create({
     padding: 32,
   },
   title: {
+    flex: 1,
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: 1,
   },
+  buttonsContainer: {
+    flex: 2, // This allocates 2 parts of the space to the buttons
+    width: '100%', // Ensures the buttons container uses the full width available
+    
+  },
+  button: {
+    marginBottom: 20, // Adds a margin to the bottom of each button
+  }
 });
