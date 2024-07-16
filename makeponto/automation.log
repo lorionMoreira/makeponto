@@ -1,0 +1,69 @@
+2024-07-08 08:50:41,791 - DEBUG - Selenium Manager binary found at: c:\Python39\lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe
+2024-07-08 08:50:41,791 - DEBUG - Executing process: c:\Python39\lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --debug --language-binding python --output json
+2024-07-08 08:50:42,925 - DEBUG - chromedriver not found in PATH
+2024-07-08 08:50:42,925 - DEBUG - chrome detected at C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+2024-07-08 08:50:42,925 - DEBUG - Running command: wmic datafile where name='C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe' get Version /value
+2024-07-08 08:50:42,925 - DEBUG - Output: "\r\r\n\r\r\nVersion=126.0.6478.114\r\r\n\r\r\n\r\r\n\r"
+2024-07-08 08:50:42,925 - DEBUG - Detected browser: chrome 126.0.6478.114
+2024-07-08 08:50:42,926 - DEBUG - Required driver: chromedriver 126.0.6478.126
+2024-07-08 08:50:42,926 - DEBUG - chromedriver 126.0.6478.126 already in the cache
+2024-07-08 08:50:42,926 - DEBUG - Driver path: C:\Users\lorion.jesus\.cache\selenium\chromedriver\win64\126.0.6478.126\chromedriver.exe
+2024-07-08 08:50:42,926 - DEBUG - Browser path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+2024-07-08 08:50:42,926 - DEBUG - Using driver at: C:\Users\lorion.jesus\.cache\selenium\chromedriver\win64\126.0.6478.126\chromedriver.exe
+2024-07-08 08:50:42,960 - DEBUG - Started executable: `C:\Users\lorion.jesus\.cache\selenium\chromedriver\win64\126.0.6478.126\chromedriver.exe` in a child process with pid: 26172 using 0 to output -3
+2024-07-08 08:50:43,509 - DEBUG - POST http://localhost:54981/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'browserVersion': None, 'goog:chromeOptions': {'extensions': [], 'binary': 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe', 'args': []}}}}
+2024-07-08 08:50:43,510 - DEBUG - Starting new HTTP connection (1): localhost:54981
+2024-07-08 08:50:44,501 - DEBUG - http://localhost:54981 "POST /session HTTP/1.1" 200 0
+2024-07-08 08:50:44,502 - DEBUG - Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"126.0.6478.114","chrome":{"chromedriverVersion":"126.0.6478.126 (d36ace6122e0a59570e258d82441395206d60e1c-refs/branch-heads/6478@{#1591})","userDataDir":"C:\\Users\\LORION~1.JES\\AppData\\Local\\Temp\\scoped_dir26172_768256207"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:54986"},"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"windows","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"8d032569beb8d8116b00ac0b9d10e301"}} | headers=HTTPHeaderDict({'Content-Length': '890', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-07-08 08:50:44,502 - DEBUG - Finished Request
+2024-07-08 08:50:44,503 - DEBUG - POST http://localhost:54981/session/8d032569beb8d8116b00ac0b9d10e301/url {'url': 'https://intranet.acpgroup.com.br/ControleAcesso/Seguranca/Login?ReturnUrl=%2fhoras'}
+2024-07-08 08:50:45,618 - DEBUG - http://localhost:54981 "POST /session/8d032569beb8d8116b00ac0b9d10e301/url HTTP/1.1" 200 0
+2024-07-08 08:50:45,619 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-07-08 08:50:45,619 - DEBUG - Finished Request
+2024-07-08 08:51:31,042 - DEBUG - Selenium Manager binary found at: c:\Python39\lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe
+2024-07-08 08:51:31,043 - DEBUG - Executing process: c:\Python39\lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --debug --language-binding python --output json
+2024-07-08 08:51:31,814 - DEBUG - chromedriver not found in PATH
+2024-07-08 08:51:31,814 - DEBUG - chrome detected at C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+2024-07-08 08:51:31,814 - DEBUG - Running command: wmic datafile where name='C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe' get Version /value
+2024-07-08 08:51:31,814 - DEBUG - Output: "\r\r\n\r\r\nVersion=126.0.6478.114\r\r\n\r\r\n\r\r\n\r"
+2024-07-08 08:51:31,814 - DEBUG - Detected browser: chrome 126.0.6478.114
+2024-07-08 08:51:31,815 - DEBUG - Required driver: chromedriver 126.0.6478.126
+2024-07-08 08:51:31,815 - DEBUG - chromedriver 126.0.6478.126 already in the cache
+2024-07-08 08:51:31,815 - DEBUG - Driver path: C:\Users\lorion.jesus\.cache\selenium\chromedriver\win64\126.0.6478.126\chromedriver.exe
+2024-07-08 08:51:31,815 - DEBUG - Browser path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+2024-07-08 08:51:31,815 - DEBUG - Using driver at: C:\Users\lorion.jesus\.cache\selenium\chromedriver\win64\126.0.6478.126\chromedriver.exe
+2024-07-08 08:51:31,837 - DEBUG - Started executable: `C:\Users\lorion.jesus\.cache\selenium\chromedriver\win64\126.0.6478.126\chromedriver.exe` in a child process with pid: 996 using 0 to output -3
+2024-07-08 08:51:32,360 - DEBUG - POST http://localhost:55049/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'browserVersion': None, 'goog:chromeOptions': {'extensions': [], 'binary': 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe', 'args': []}}}}
+2024-07-08 08:51:32,362 - DEBUG - Starting new HTTP connection (1): localhost:55049
+2024-07-08 08:51:33,130 - DEBUG - http://localhost:55049 "POST /session HTTP/1.1" 200 0
+2024-07-08 08:51:33,130 - DEBUG - Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"126.0.6478.114","chrome":{"chromedriverVersion":"126.0.6478.126 (d36ace6122e0a59570e258d82441395206d60e1c-refs/branch-heads/6478@{#1591})","userDataDir":"C:\\Users\\LORION~1.JES\\AppData\\Local\\Temp\\scoped_dir996_166923682"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:55059"},"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"windows","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"4f9ef384514bdc4e95069caf97f49ad2"}} | headers=HTTPHeaderDict({'Content-Length': '888', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-07-08 08:51:33,131 - DEBUG - Finished Request
+2024-07-08 08:51:33,131 - DEBUG - POST http://localhost:55049/session/4f9ef384514bdc4e95069caf97f49ad2/url {'url': 'https://intranet.acpgroup.com.br/ControleAcesso/Seguranca/Login?ReturnUrl=%2fhoras'}
+2024-07-08 08:51:33,833 - DEBUG - http://localhost:55049 "POST /session/4f9ef384514bdc4e95069caf97f49ad2/url HTTP/1.1" 200 0
+2024-07-08 08:51:33,833 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-07-08 08:51:33,834 - DEBUG - Finished Request
+2024-07-08 08:51:45,162 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2024-07-08 08:52:27,554 - DEBUG - Selenium Manager binary found at: c:\Python39\lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe
+2024-07-08 08:52:27,554 - DEBUG - Executing process: c:\Python39\lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --debug --language-binding python --output json
+2024-07-08 08:52:28,534 - DEBUG - chromedriver not found in PATH
+2024-07-08 08:52:28,534 - DEBUG - chrome detected at C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+2024-07-08 08:52:28,534 - DEBUG - Running command: wmic datafile where name='C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe' get Version /value
+2024-07-08 08:52:28,534 - DEBUG - Output: "\r\r\n\r\r\nVersion=126.0.6478.114\r\r\n\r\r\n\r\r\n\r"
+2024-07-08 08:52:28,534 - DEBUG - Detected browser: chrome 126.0.6478.114
+2024-07-08 08:52:28,534 - DEBUG - Required driver: chromedriver 126.0.6478.126
+2024-07-08 08:52:28,535 - DEBUG - chromedriver 126.0.6478.126 already in the cache
+2024-07-08 08:52:28,535 - DEBUG - Driver path: C:\Users\lorion.jesus\.cache\selenium\chromedriver\win64\126.0.6478.126\chromedriver.exe
+2024-07-08 08:52:28,535 - DEBUG - Browser path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+2024-07-08 08:52:28,535 - DEBUG - Using driver at: C:\Users\lorion.jesus\.cache\selenium\chromedriver\win64\126.0.6478.126\chromedriver.exe
+2024-07-08 08:52:28,555 - DEBUG - Started executable: `C:\Users\lorion.jesus\.cache\selenium\chromedriver\win64\126.0.6478.126\chromedriver.exe` in a child process with pid: 21112 using 0 to output -3
+2024-07-08 08:52:29,068 - DEBUG - POST http://localhost:55124/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'browserVersion': None, 'goog:chromeOptions': {'extensions': [], 'binary': 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe', 'args': []}}}}
+2024-07-08 08:52:29,070 - DEBUG - Starting new HTTP connection (1): localhost:55124
+2024-07-08 08:52:29,827 - DEBUG - http://localhost:55124 "POST /session HTTP/1.1" 200 0
+2024-07-08 08:52:29,828 - DEBUG - Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"126.0.6478.114","chrome":{"chromedriverVersion":"126.0.6478.126 (d36ace6122e0a59570e258d82441395206d60e1c-refs/branch-heads/6478@{#1591})","userDataDir":"C:\\Users\\LORION~1.JES\\AppData\\Local\\Temp\\scoped_dir21112_972216839"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:55129"},"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"windows","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"9bf842cbba30557038c4fce8124fc7d8"}} | headers=HTTPHeaderDict({'Content-Length': '890', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-07-08 08:52:29,828 - DEBUG - Finished Request
+2024-07-08 08:52:29,830 - DEBUG - POST http://localhost:55124/session/9bf842cbba30557038c4fce8124fc7d8/url {'url': 'https://intranet.acpgroup.com.br/ControleAcesso/Seguranca/Login?ReturnUrl=%2fhoras'}
+2024-07-08 08:52:30,453 - DEBUG - http://localhost:55124 "POST /session/9bf842cbba30557038c4fce8124fc7d8/url HTTP/1.1" 200 0
+2024-07-08 08:52:30,453 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-07-08 08:52:30,454 - DEBUG - Finished Request
+2024-07-08 08:52:41,302 - DEBUG - Starting new HTTP connection (1): myec2lorion.zapto.org:80
+2024-07-08 08:52:44,172 - DEBUG - http://myec2lorion.zapto.org:80 "POST /login HTTP/1.1" 200 104

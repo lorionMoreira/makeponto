@@ -2,6 +2,7 @@ import configparser
 import time
 import os
 import random
+import logging
 from datetime import datetime, timedelta
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -12,6 +13,9 @@ from function_operations import process_data_fetched, process_status_ponto, calc
 config = configparser.ConfigParser()
 config.read('config.ini')
 
+# Configure logging
+logging.basicConfig(filename='automation.log', filemode='a', level=logging.DEBUG,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Log file name
 log_file_name = "logfile.log"
@@ -46,10 +50,10 @@ definedTimefixed = config.get('credentials', 'definedTime')
 isProd = config.get('credentials', 'isProd')
 
 #get ambient to comunicate
-if isProd == 'no':  # Replace this condition with something that determines dev vs. prod
-    baseUrl = config.get('credentials', 'urlBaseDev')
-else:
+if isProd == 'yes':  # Replace this condition with something that determines dev vs. prod
     baseUrl = config.get('credentials', 'urlBaseProd')
+else:
+    baseUrl = config.get('credentials', 'urlBaseDev')
 
 # Open a web page (for example, Google)
 driver.get(linkLoginPonto)
@@ -59,17 +63,20 @@ time.sleep(2)
 
 def perform_actions(driver, averageTime): #time in secods
     timetosleep = calculateTimeToClick(averageTime)
+    logging.debug(f'time to sleep of performed actions {timetosleep}')
     time.sleep(timetosleep)
     make_login(driver)
     click_submit_button(driver)
     time.sleep(5)
 
 def perform_actions2e3(driver): 
+    logging.debug(f'perform actions 2e3 ')
     make_login(driver)
     click_submit_button(driver)
     time.sleep(5)
 
 def perform_actions4(driver): 
+    logging.debug(f'perform actions 4 ')
     make_login(driver)
     value = get_value_after_login(driver)
 
@@ -131,26 +138,34 @@ def get_value_after_login(driver):
 
     return None
 def click_submit_button(driver):
-    password_field2 = driver.find_element(By.ID, "btn-registrar") 
-    password_field2.click()
-    time.sleep(5)
-    success = driver.save_screenshot('screenshot1.png')
-
+    try:
+        password_field2 = driver.find_element(By.ID, "btn-registrar") 
+        password_field2.click()
+        time.sleep(5)
+        success = driver.save_screenshot('screenshot1.png')
+        logging.debug(f'click submit went well')
+    except Exception as e:
+        logging.error(f'Error in click sumbit: {e}')
+    finally:
+        time.sleep(5)
 
 def make_login(driver):
-    
-    password_field = driver.find_element(By.ID, "Pass2") 
-    password_field.send_keys(password)
-    time.sleep(2)
-    
-    username_field = driver.find_element(By.NAME, "Login")  
-    username_field.send_keys(username)
-    time.sleep(2)
-    
-    login_button = driver.find_element(By.XPATH, '//button[@type="submit"]')  
-    login_button.click()
-    time.sleep(5)
-
+    try:
+        password_field = driver.find_element(By.ID, "Pass2") 
+        password_field.send_keys(password)
+        time.sleep(2)
+        
+        username_field = driver.find_element(By.NAME, "Login")  
+        username_field.send_keys(username)
+        time.sleep(2)
+        
+        login_button = driver.find_element(By.XPATH, '//button[@type="submit"]')  
+        login_button.click()
+        logging.debug(f'makelogin went well')
+    except Exception as e:
+        logging.error(f'Error in make_login: {e}')
+    finally:
+        time.sleep(5)
 # make ponto function groups 
 
 def makeponto4(our_str):
@@ -165,11 +180,12 @@ def makeponto4(our_str):
         statusPonto = process_status_ponto(data_fetched,vtype)
 
         if statusPonto:
+            logging.debug(f'makeponto4 {statusPonto}')
             perform_actions4(driver)
 
     except requests.exceptions.RequestException as e:
         print(f"API is not reachable, using default settings: {e}")
-       
+        logging.debug(f'makeponto4 not {e}')
         perform_actions4(driver)
 
     except Exception as e:
@@ -177,6 +193,12 @@ def makeponto4(our_str):
 
     finally:
         driver.quit()
+
+def makeponto5(our_str):
+
+        logging.debug(f'makeponto4 not {e}')
+        perform_actions4(driver)
+
 
 def makeponto2e3(our_str):
     if our_str == '12':
@@ -191,11 +213,12 @@ def makeponto2e3(our_str):
         statusPonto = process_status_ponto(data_fetched,vtype)
 
         if statusPonto:
+            logging.debug(f'makeponto2e3 {statusPonto}')
             perform_actions2e3(driver)
 
     except requests.exceptions.RequestException as e:
         print(f"API is not reachable, using default settings: {e}")
-
+        logging.debug(f'makeponto2e3 not {e}')
         perform_actions2e3(driver)
 
     except Exception as e:
@@ -205,6 +228,7 @@ def makeponto2e3(our_str):
         driver.quit()
 
 def makeponto1():
+    
     try:
         token = authenticate_and_get_token()  # Authenticate and retrieve token
         url = baseUrl+urlSetting    
@@ -212,11 +236,12 @@ def makeponto1():
         timeDefined = process_data_fetched(data_fetched)
 
         if timeDefined:
+            logging.debug(f'makeponto1 {timeDefined}')
             perform_actions(driver, timeDefined)
 
     except requests.exceptions.RequestException as e:
         print(f"API is not reachable, using default settings: {e}")
-
+        logging.debug(f'makeponto not {e}')
 
         perform_actions(driver, definedTimefixed)
 
@@ -230,9 +255,8 @@ def makeponto1():
 
 def main(driver):
 
-
-    #makeponto1()
-
+    hour_str == '08'
+    makeponto1()
 
     if hour_str == '08':
         makeponto1()
@@ -240,6 +264,8 @@ def main(driver):
         makeponto2e3(hour_str)
     elif hour_str == '17':
         makeponto4(hour_str)
+    elif hour_str == '14':
+        makeponto5(hour_str)
     else:
         print("It's not the time for any scheduled tasks.")
 

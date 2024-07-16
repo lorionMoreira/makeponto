@@ -1,5 +1,7 @@
 makeponto/config
 appfrontend/makepontoapp/node_modules
+appfrontend/makepontoapp/.expo
+appfrontend/makepontoapp/package-lock.json
 backend/src/main/resources/application-dev.properties
 backend/src/main/resources/application-prod.properties
 backend/src/main/resources/application-test.properties

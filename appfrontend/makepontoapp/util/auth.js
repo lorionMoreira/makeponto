@@ -3,15 +3,17 @@ import axios from 'axios';
 const API_KEY = 'AIzaSyDCYasArcOwcALFhIj2szug5aD2PgUQu1E';
 
 async function authenticate(mode, email, password) {
-  const url = `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${API_KEY}`;
+  //const url = `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${API_KEY}`;
+
+  const url = `http://myec2dinamic.zapto.org:8080/login`
 
   const response = await axios.post(url, {
     email: email,
-    password: password,
-    returnSecureToken: true,
+    senha: password,
   });
 
-  const token = response.data.idToken;
+  //const token = response.data;
+  const token = response.headers['authorization'];
 
   return token;
 }
