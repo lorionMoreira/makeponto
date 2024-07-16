@@ -58,7 +58,7 @@ function WelcomeScreen({ navigation }) {
       <View style={styles.buttonsContainer}>
         <View style={styles.button}>
           <Button onPress={btnDisableOneHour} style={styles.button}>
-            Cancelar 1
+            Cancelar 1° hora
           </Button>
         </View>
         <View style={styles.button}>

@@ -8,6 +8,9 @@ import AppLoading from 'expo-app-loading';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
+
+import DisableSomeHourScreen from './screens/DisableSomeHourScreen';
+
 import MoreOptionsScreen from './screens/MoreOptionsScreen';
 import { Colors } from './constants/styles';
 import AuthContextProvider, { AuthContext } from './store/auth-context';
@@ -58,6 +61,11 @@ function AuthenticatedStack() {
         name="MoreOptions" // Define the route name
         component={MoreOptionsScreen} // Assign the component to be rendered
         options={{ title: 'Mais Opções' }} // Optional: Set a title or other options
+      />
+      <Stack.Screen
+        name="DisableSomeHour" // Define the route name
+        component={DisableSomeHourScreen} // Assign the component to be rendered
+        options={{ title: 'Desabilite algum horário' }} // Optional: Set a title or other options
       />
     </Stack.Navigator>
   );

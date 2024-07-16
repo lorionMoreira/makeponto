@@ -33,36 +33,25 @@ function MoreOptionsScreen({ navigation }) {
             console.error("Error:", error);
     });
  }
-  function btnDelayOneHour() {
-    disableSomeHour('http://myec2dinamic.zapto.org:8080/api/records/disable/');
-  }
 
-  function btnDisableAll() {
-    disableAll('http://myec2dinamic.zapto.org:8080/api/records/disable-all', token)
-        .then(volta => {
-            console.log("volta");
-            console.log(volta);
-        })
-        .catch(error => {
-            console.error("Error:", error);
-    });
-  }
 
-  function btnMoreOptions() {
+  function btnChangeOneHour() {
     
   }
-
+  function btnDisableSomeHour() {
+    navigation.navigate('DisableSomeHour'); 
+  }
   return (
     <View style={styles.rootContainer}>
       <Text style={styles.title}>O sistema está conectado</Text>
       <View style={styles.buttonsContainer}>
         <View style={styles.button}>
-          <Button onPress={btnDisableOneHour}>
-            Escolher cancelamento
+          <Button onPress={btnDisableSomeHour}>
+            Desabilitar um horário
           </Button>
         </View>
         <View style={styles.button}>
-          <Button onPress={btnDisableOneHour}>
+          <Button onPress={btnChangeOneHour}>
             Mudar 1° horário
           </Button>
         </View>
