@@ -23,6 +23,11 @@ public interface ConfigRecordRepository extends JpaRepository<ConfigRecord, Inte
 
     @Modifying
     @Transactional
+    @Query("UPDATE ConfigRecord c SET c.status = true WHERE c.type = :type")
+    int enableAutomationByType(String type);
+
+    @Modifying
+    @Transactional
     @Query("UPDATE ConfigRecord c SET c.overrideTime = :overrideTime WHERE c.type = :type")
     int updateOverrideTimeByType(String type, Time overrideTime);
 }

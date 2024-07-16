@@ -34,7 +34,9 @@ public class ConfigRecordService {
     public int disableAutomationByType(String type) {
         return configRecordRepository.disableAutomationByType(type);
     }
-
+    public int enableAutomationByType(String type) {
+        return configRecordRepository.enableAutomationByType(type);
+    }
     // change the default hour to execute the automation
     public int changeOverrideTimeByType(String type, String overrideTime) throws Exception {
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");

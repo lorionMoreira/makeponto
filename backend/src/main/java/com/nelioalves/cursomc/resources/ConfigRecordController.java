@@ -48,6 +48,17 @@ public class ConfigRecordController {
         return ResponseEntity.ok(allConfigRecords);
         // return ResponseEntity.ok("Automation of type '" + type + "' has been disabled.");  // Successfully disabled the automation
     }
+    @PostMapping("/enable/{type}")
+    public ResponseEntity<?> enableAutomationByType(@PathVariable String type) {
+        int updatedCount = configRecordService.disableAutomationByType(type);
+        if (updatedCount == 0) {
+            return ResponseEntity.notFound().build();  // No record was found with the given type, or it was already disabled
+        }
+        // Assuming getAllConfigRecords returns a list of config records
+        List<ConfigRecord> allConfigRecords = configRecordService.getAllConfigRecords();
+        return ResponseEntity.ok(allConfigRecords);
+        // return ResponseEntity.ok("Automation of type '" + type + "' has been disabled.");  // Successfully disabled the automation
+    }
 
     @PostMapping("/change/{type}")
     public ResponseEntity<?> changeOverrideTime(@PathVariable String type, @RequestParam String overrideTime) {
