@@ -43,7 +43,10 @@ public class ConfigRecordController {
         if (updatedCount == 0) {
             return ResponseEntity.notFound().build();  // No record was found with the given type, or it was already disabled
         }
-        return ResponseEntity.ok("Automation of type '" + type + "' has been disabled.");  // Successfully disabled the automation
+        // Assuming getAllConfigRecords returns a list of config records
+        List<ConfigRecord> allConfigRecords = configRecordService.getAllConfigRecords();
+        return ResponseEntity.ok(allConfigRecords);
+        // return ResponseEntity.ok("Automation of type '" + type + "' has been disabled.");  // Successfully disabled the automation
     }
 
     @PostMapping("/change/{type}")
