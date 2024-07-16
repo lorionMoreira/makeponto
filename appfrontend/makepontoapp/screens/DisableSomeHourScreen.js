@@ -38,17 +38,42 @@ function DisableSomeHourScreen({ navigation }) {
         return item;
     });
 
-    setSettings(updatedSettings);
-
-    axios.post(`https://your-api-endpoint.com/api/records/update/${settings[index].id}`, {
+    
+    if(newValue){
+      axios.post(`http://myec2dinamic.zapto.org:8080/api/records/enable/${settings[index].type}`, {
         status: newValue
-    })
-    .then(response => {
-        console.log('Status updated successfully:', response.data);
-    })
-    .catch(error => {
-        console.error('Error updating status:', error);
-    });
+      },{
+        headers: {
+          Authorization: `${token}`  // Include the token in the Authorization header
+        }
+      }
+    )
+      .then(response => {
+          console.log('Status updated successfully:', response.data);
+          setSettings(updatedSettings);
+      })
+      .catch(error => {
+          console.error('Error updating status:', error);
+      });
+    }
+
+    if(!newValue){
+      axios.post(`http://myec2dinamic.zapto.org:8080/api/records/disable/${settings[index].type}`, {
+        status: newValue
+      },{
+        headers: {
+          Authorization: `${token}`  // Include the token in the Authorization header
+        }
+      })
+      .then(response => {
+          console.log('Status updated successfully:', response.data);
+          setSettings(updatedSettings);
+      })
+      .catch(error => {
+          console.error('Error updating status:', error);
+      }); 
+    }
+
   };
 
   return (
