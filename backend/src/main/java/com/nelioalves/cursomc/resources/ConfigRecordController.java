@@ -34,7 +34,8 @@ public class ConfigRecordController {
         if (updatedCount == 0) {
             return ResponseEntity.notFound().build();  // No records found to update
         }
-        return ResponseEntity.ok("Disabled " + updatedCount + " automations.");  // Returns HTTP 200 with count of disabled automations
+        List<ConfigRecord> allConfigRecords = configRecordService.getAllConfigRecords();
+        return ResponseEntity.ok(allConfigRecords);  // Returns HTTP 200 with count of disabled automations
     }
 
     @PostMapping("/disable/{type}")
@@ -48,9 +49,10 @@ public class ConfigRecordController {
         return ResponseEntity.ok(allConfigRecords);
         // return ResponseEntity.ok("Automation of type '" + type + "' has been disabled.");  // Successfully disabled the automation
     }
+
     @PostMapping("/enable/{type}")
     public ResponseEntity<?> enableAutomationByType(@PathVariable String type) {
-        int updatedCount = configRecordService.disableAutomationByType(type);
+        int updatedCount = configRecordService.enableAutomationByType(type);
         if (updatedCount == 0) {
             return ResponseEntity.notFound().build();  // No record was found with the given type, or it was already disabled
         }

@@ -23,20 +23,9 @@ function MoreOptionsScreen({ navigation }) {
     });
   }, [token]);
 
-  function btnDisableOneHour() {
-    disableSomeHour('http://myec2dinamic.zapto.org:8080/api/records/disable/time1', token)
-        .then(volta => {
-            console.log("volta");
-            console.log(volta);
-        })
-        .catch(error => {
-            console.error("Error:", error);
-    });
- }
-
 
   function btnChangeOneHour() {
-    
+    navigation.navigate('ChangeOneHour'); 
   }
   function btnDisableSomeHour() {
     navigation.navigate('DisableSomeHour'); 

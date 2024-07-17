@@ -10,6 +10,7 @@ import SignupScreen from './screens/SignupScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 
 import DisableSomeHourScreen from './screens/DisableSomeHourScreen';
+import ChangeOneHourScreen from './screens/ChangeOneHourScreen';
 
 import MoreOptionsScreen from './screens/MoreOptionsScreen';
 import { Colors } from './constants/styles';
@@ -66,6 +67,11 @@ function AuthenticatedStack() {
         name="DisableSomeHour" // Define the route name
         component={DisableSomeHourScreen} // Assign the component to be rendered
         options={{ title: 'Desabilite algum horário' }} // Optional: Set a title or other options
+      />
+      <Stack.Screen
+        name="ChangeOneHour" // Define the route name
+        component={ChangeOneHourScreen} // Assign the component to be rendered
+        options={{ title: 'Mude o 1° horário' }} // Optional: Set a title or other options
       />
     </Stack.Navigator>
   );
