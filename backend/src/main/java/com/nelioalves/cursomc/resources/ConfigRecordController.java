@@ -69,7 +69,8 @@ public class ConfigRecordController {
             if (updatedCount == 0) {
                 return ResponseEntity.notFound().build();  // No record was found with the given type
             }
-            return ResponseEntity.ok("Override time updated for type: " + type);
+            List<ConfigRecord> allConfigRecords = configRecordService.getAllConfigRecords();
+            return ResponseEntity.ok(allConfigRecords);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Invalid time format. Please use HH:mm:ss format.");
         }

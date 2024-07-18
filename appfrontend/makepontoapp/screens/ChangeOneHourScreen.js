@@ -4,11 +4,12 @@ import { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View,TextInput, Alert  } from 'react-native';
 import { AuthContext } from '../store/auth-context';
 import Button from '../components/ui/Button';
-import { Checkbox } from 'react-native-paper';
+
 
 function ChangeOneHourScreen({ navigation }) {
   
   const [settings, setSettings] = useState([]);
+  const [inputText, setInputText] = useState('');
 
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
@@ -29,33 +30,81 @@ function ChangeOneHourScreen({ navigation }) {
   }, [token]);
 
 
-  const [inputText, setInputText] = useState('');
-
   const handleSend = () => {
-    // Handle the send action, e.g., sending data to a server
-    Alert.alert('Send Action', `Sending data: ${inputText}`);
+    if (validateTime(inputText)) {
+      let myurl = `http://myec2dinamic.zapto.org:8080/api/records/change/${settings[0].type}?overrideTime=${inputText}`
+      console.log(myurl)
+      axios.post(myurl, {},{
+        headers: {
+          Authorization: `${token}`  // Include the token in the Authorization header
+        }
+      })
+      .then(response => {
+          console.log('Status updated successfully:', response.data);
+          setSettings(response.data);
+      })
+      .catch(error => {
+          console.error('Error updating status:', error);
+      }); 
+    } else {
+      Alert.alert('Invalid Time', 'Please enter a valid time in the format HH:MM:SS where hours are 00-23, minutes and seconds are 00-59.');
+    }
   };
+
+  const validateTime = (time) => {
+    const pattern = /^([01]?[0-9]|2[0-3]):([0-5]?[0-9]):([0-5]?[0-9])$/;
+    if (!pattern.test(time)) {
+        return false;
+    }
+    const parts = time.split(':');
+    const hours = parseInt(parts[0], 10);
+    const minutes = parseInt(parts[1], 10);
+    const seconds = parseInt(parts[2], 10);
+    if (hours > 23 || minutes > 59 || seconds > 59) {
+        return false;
+    }
+    return true;
+};
 
   const handleInitialPreferences = () => {
-    // Handle setting initial preferences, e.g., resetting state or fetching data
-    Alert.alert('Initial Preferences', 'Setting initial preferences...');
+    // dont implement yet
+    
   };
+
+  const handleInputChange = (text) => {
+    // Regular expression to match and format input to time format (HH:MM:SS)
+    let newText = text.replace(/[^0-9]/g, '');
+    if (newText.length > 2) {
+      newText = newText.substring(0, 2) + ':' + newText.substring(2);
+    }
+    if (newText.length > 5) {
+      newText = newText.substring(0, 5) + ':' + newText.substring(5, 7);
+    }
+    setInputText(newText.substring(0, 8)); // Ensure string is no longer than the length for HH:MM:SS
+  };
+
+
 
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        onChangeText={setInputText}
+        onChangeText={handleInputChange}
         value={inputText}
-        placeholder="Enter your text here"
+        placeholder="HH:MM:SS"
+        keyboardType="numeric"
       />
-      <Button onPress={handleSend} style={styles.button}>
-        Enviar
-      </Button>
+      <View style={styles.fullWidthButtonContainer}>
+        <Button onPress={handleSend} style={styles.button}>
+          Enviar
+        </Button>
+      </View>
 
-      <Button onPress={handleInitialPreferences} style={styles.button}>
-        Padrão
-      </Button>
+      <View style={styles.fullWidthButtonContainer}>
+        <Button onPress={handleInitialPreferences} style={styles.button}>
+          Padrão
+        </Button>
+      </View>
     </View>
 );
 
@@ -81,5 +130,9 @@ const styles = StyleSheet.create({
   },
   button: {
     marginBottom: 20, // Adds a margin to the bottom of each button
+  },
+  fullWidthButtonContainer: {
+    width: '100%', // Ensure the container for each button is full width
+    marginBottom: 20,
   }
 });
