@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 @RequestMapping(value = "/api/pipeline")
 public class WebhookController {
+
     
     @PostMapping("/start")
     public void handleWebhook(@RequestBody String payload) {
