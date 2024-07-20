@@ -1,7 +1,9 @@
 package com.nelioalves.cursomc.resources;
 
 import java.nio.file.Files;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -14,9 +16,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/api/pipeline")
 public class WebhookController {
 
-    
+
     @PostMapping("/start")
     public void handleWebhook(@RequestBody String payload) {
+        System.out.println("Received webhook payload: " + payload);
+
+        // Path to the script
+        String scriptPath = "/srv/vendas/output/my_script.sh";
+
+        try {
+            // Execute the script
+            ProcessBuilder processBuilder = new ProcessBuilder(scriptPath);
+            processBuilder.directory(new java.io.File("/srv/vendas/output")); // Set script execution directory
+            Process process = processBuilder.start();
+
+            // Read output of the script
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            int exitCode = process.waitFor();
+            System.out.println("Executed script exited with code " + exitCode);
+
+        } catch (IOException | InterruptedException e) {
+            System.err.println("Error during script execution: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    /* 
+    @PostMapping("/start2")
+    public void handleWebhook2(@RequestBody String payload) {
         System.out.println("Received webhook payload: " + payload);
 
         // Use the system-specific separator to avoid issues
@@ -41,4 +72,5 @@ public class WebhookController {
             e.printStackTrace();
         }
     }
+        */
 }
