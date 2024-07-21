@@ -23,7 +23,7 @@ public class WebhookController {
             throw new SecurityException("Invalid secret");
         }
 
-        System.out.println("Received webhook payload: " + payload);
+        System.out.println("Received webhook payload2: " + payload);
 
         // Path to the script
         String scriptPath = "/srv/vendas/output/my_script.sh";
