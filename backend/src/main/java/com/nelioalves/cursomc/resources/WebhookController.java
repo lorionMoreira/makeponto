@@ -1,24 +1,28 @@
 package com.nelioalves.cursomc.resources;
 
-import java.nio.file.Files;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/api/pipeline")
 public class WebhookController {
 
+    @Value("${webhook.secret}")
+    private String secret;
 
     @PostMapping("/start")
-    public void handleWebhook(@RequestBody String payload) {
+    @ResponseStatus(HttpStatus.OK)
+    public void handleWebhook(@RequestHeader("X-Hub-Signature-256") String signature, @RequestBody String payload, HttpServletRequest request) {
+        if (!validateSecret(signature, payload)) {
+            throw new SecurityException("Invalid secret");
+        }
+
         System.out.println("Received webhook payload: " + payload);
 
         // Path to the script
@@ -45,32 +49,29 @@ public class WebhookController {
             e.printStackTrace();
         }
     }
-    /* 
-    @PostMapping("/start2")
-    public void handleWebhook2(@RequestBody String payload) {
-        System.out.println("Received webhook payload: " + payload);
 
-        // Use the system-specific separator to avoid issues
-        String directory = "output"; // Example directory name
-        String fileName = "hello-world.txt";
-        Path path = Paths.get(directory, fileName);
+    private boolean validateSecret(String signature, String payload) {
+        String hash = "sha256=" + hmacSHA256(payload, secret);
+        return hash.equals(signature);
+    }
 
-        // Ensure directory exists
+    private String hmacSHA256(String data, String secret) {
         try {
-            Files.createDirectories(path.getParent());
-        } catch (IOException e) {
-            System.err.println("Error creating directories: " + e.getMessage());
-            return;
-        }
-
-        String content = "hello world!";
-        try {
-            Files.write(path, content.getBytes());
-            System.out.println("File created successfully at " + path.toString());
-        } catch (IOException e) {
-            System.out.println("Failed to create the file.");
-            e.printStackTrace();
+            javax.crypto.Mac mac = javax.crypto.Mac.getInstance("HmacSHA256");
+            javax.crypto.spec.SecretKeySpec secretKeySpec = new javax.crypto.spec.SecretKeySpec(secret.getBytes(), "HmacSHA256");
+            mac.init(secretKeySpec);
+            byte[] rawHmac = mac.doFinal(data.getBytes());
+            return bytesToHex(rawHmac);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to calculate HMAC SHA256", e);
         }
     }
-        */
+
+    private String bytesToHex(byte[] bytes) {
+        StringBuilder result = new StringBuilder();
+        for (byte b : bytes) {
+            result.append(String.format("%02x", b));
+        }
+        return result.toString();
+    }
 }
