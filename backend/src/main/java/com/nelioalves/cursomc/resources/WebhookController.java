@@ -20,7 +20,7 @@ public class WebhookController {
     @ResponseStatus(HttpStatus.OK)
     public void handleWebhook(@RequestHeader("X-Hub-Signature-256") String signature, @RequestBody String payload, HttpServletRequest request) {
         if (!validateSecret(signature, payload)) {
-            throw new SecurityException("Invalid secret10");
+            throw new SecurityException("Invalid secret11");
         }
 
         System.out.println("Received webhook payload2: " + payload);
