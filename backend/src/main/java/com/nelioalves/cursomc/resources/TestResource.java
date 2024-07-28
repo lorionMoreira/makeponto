@@ -12,7 +12,7 @@ public class TestResource {
 
     @GetMapping("/version")
     public ResponseEntity<String> getAutomationSettings() {
-        String version = "version system test: 1.6";
+        String version = "version system test: 1.7";
 
         return ResponseEntity.ok(version); 
     }
