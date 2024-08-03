@@ -3,7 +3,7 @@ name: Android makeponto App
 on: workflow_dispatch
 
 env:
-  WORKING_DIRECTORY: ./makeponto/appfrontend
+  WORKING_DIRECTORY: ./appfrontend
 
 jobs:
   build:
