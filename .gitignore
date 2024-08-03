@@ -6,4 +6,5 @@ backend/src/main/resources/application-dev.properties
 backend/src/main/resources/application-prod.properties
 backend/src/main/resources/application-test.properties
 backend/src/main/resources/application.properties
+.vscode
 

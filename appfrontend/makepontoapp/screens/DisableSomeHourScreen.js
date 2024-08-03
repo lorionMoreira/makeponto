@@ -14,7 +14,7 @@ function DisableSomeHourScreen({ navigation }) {
   const token = authCtx.token;
 
   useEffect(() => {
-    axios.get('http://myec2dinamic.zapto.org:8080/api/records/settings', {
+    axios.get('https://myec2lorion.zapto.org/api/records/settings', {
       headers: {
         Authorization: `${token}`  // Include the token in the Authorization header
       }
@@ -40,7 +40,7 @@ function DisableSomeHourScreen({ navigation }) {
 
     
     if(newValue){
-      axios.post(`http://myec2dinamic.zapto.org:8080/api/records/enable/${settings[index].type}`, {
+      axios.post(`https://myec2lorion.zapto.org/api/records/enable/${settings[index].type}`, {
         status: newValue
       },{
         headers: {
@@ -58,7 +58,7 @@ function DisableSomeHourScreen({ navigation }) {
     }
 
     if(!newValue){
-      axios.post(`http://myec2dinamic.zapto.org:8080/api/records/disable/${settings[index].type}`, {
+      axios.post(`https://myec2lorion.zapto.org/api/records/disable/${settings[index].type}`, {
         status: newValue
       },{
         headers: {

@@ -15,7 +15,7 @@ function ChangeOneHourScreen({ navigation }) {
   const token = authCtx.token;
 
   useEffect(() => {
-    axios.get('http://myec2dinamic.zapto.org:8080/api/records/settings', {
+    axios.get('https://myec2lorion.zapto.org/api/records/settings', {
       headers: {
         Authorization: `${token}`  // Include the token in the Authorization header
       }
@@ -32,7 +32,7 @@ function ChangeOneHourScreen({ navigation }) {
 
   const handleSend = () => {
     if (validateTime(inputText)) {
-      let myurl = `http://myec2dinamic.zapto.org:8080/api/records/change/${settings[0].type}?overrideTime=${inputText}`
+      let myurl = `https://myec2lorion.zapto.org/api/records/change/${settings[0].type}?overrideTime=${inputText}`
       console.log(myurl)
       axios.post(myurl, {},{
         headers: {

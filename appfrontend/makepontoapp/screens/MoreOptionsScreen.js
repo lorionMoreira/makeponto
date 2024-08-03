@@ -12,7 +12,7 @@ function MoreOptionsScreen({ navigation }) {
   const token = authCtx.token;
 
   useEffect(() => {
-    axios.get('http://myec2dinamic.zapto.org:8080/api/records/settings', {
+    axios.get('https://myec2lorion.zapto.org/api/records/settings', {
       headers: {
         Authorization: `${token}`  // Include the token in the Authorization header
       }

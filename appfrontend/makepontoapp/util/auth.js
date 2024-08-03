@@ -5,7 +5,7 @@ const API_KEY = 'AIzaSyDCYasArcOwcALFhIj2szug5aD2PgUQu1E';
 async function authenticate(mode, email, password) {
   //const url = `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${API_KEY}`;
 
-  const url = `http://myec2dinamic.zapto.org:8080/login`
+  const url = `https://myec2lorion.zapto.org/login`
 
   const response = await axios.post(url, {
     email: email,

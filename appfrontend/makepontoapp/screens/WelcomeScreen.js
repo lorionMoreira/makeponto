@@ -12,7 +12,7 @@ function WelcomeScreen({ navigation }) {
   const token = authCtx.token;
 
   useEffect(() => {
-    axios.get('http://myec2dinamic.zapto.org:8080/api/records/settings', {
+    axios.get('https://myec2lorion.zapto.org/api/records/settings', {
       headers: {
         Authorization: `${token}`  // Include the token in the Authorization header
       }
@@ -24,7 +24,7 @@ function WelcomeScreen({ navigation }) {
   }, [token]);
 
   function btnDisableOneHour() {
-    disableSomeHour('http://myec2dinamic.zapto.org:8080/api/records/disable/time1', token)
+    disableSomeHour('https://myec2lorion.zapto.org/api/records/disable/time1', token)
         .then(volta => {
             console.log("volta");
             console.log(volta);
@@ -34,11 +34,11 @@ function WelcomeScreen({ navigation }) {
     });
  }
   function btnDelayOneHour() {
-    disableSomeHour('http://myec2dinamic.zapto.org:8080/api/records/disable/');
+    disableSomeHour('https://myec2lorion.zapto.org/api/records/disable/');
   }
 
   function btnDisableAll() {
-    disableAll('http://myec2dinamic.zapto.org:8080/api/records/disable-all', token)
+    disableAll('https://myec2lorion.zapto.org/api/records/disable-all', token)
         .then(volta => {
             console.log("volta");
             console.log(volta);
