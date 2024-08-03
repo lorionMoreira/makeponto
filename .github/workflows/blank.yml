@@ -3,7 +3,7 @@ on:
   workflow_dispatch:  # This allows manual triggering
 
 env:
-  WORKING_DIRECTORY: ./appfrontend
+  WORKING_DIRECTORY: ./appfrontend/makepontoapp
 
 jobs:
   build:
