@@ -1,0 +1,50 @@
+name: Android App APK Build
+on:
+  workflow_dispatch:  # This allows manual triggering
+
+env:
+  WORKING_DIRECTORY: ./appfrontend/makepontoapp
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          cache: 'npm'
+          cache-dependency-path: ${{ env.WORKING_DIRECTORY }}/package-lock.json
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Setup Expo
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+
+      - name: Build Android app
+        run: npx eas build --platform android --profile preview --local --output ./app-release.apk
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: ${{ env.WORKING_DIRECTORY }}/app-release.apk
