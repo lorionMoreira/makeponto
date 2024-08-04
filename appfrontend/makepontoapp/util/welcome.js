@@ -23,7 +23,7 @@ export async function disableSomeHour(url, token) {
     return result;
 }
 
-export async function disableAll(url, token) {
+export async function disableOrEnableAll(url, token) {
     let result = await myPost(url, token);
     return result;
 }

@@ -38,6 +38,16 @@ public class ConfigRecordController {
         return ResponseEntity.ok(allConfigRecords);  // Returns HTTP 200 with count of disabled automations
     }
 
+    @PostMapping("/enable-all")
+    public ResponseEntity<?> enableAllAutomations() {
+        int updatedCount = configRecordService.enableAllAutomations();
+        if (updatedCount == 0) {
+            return ResponseEntity.notFound().build();  // No records found to update
+        }
+        List<ConfigRecord> allConfigRecords = configRecordService.getAllConfigRecords();
+        return ResponseEntity.ok(allConfigRecords);  // Returns HTTP 200 with count of disabled automations
+    }
+
     @PostMapping("/disable/{type}")
     public ResponseEntity<?> disableAutomationByType(@PathVariable String type) {
         int updatedCount = configRecordService.disableAutomationByType(type);

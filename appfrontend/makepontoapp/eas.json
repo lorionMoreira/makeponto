@@ -5,7 +5,7 @@
       "android": {
         "buildType": "apk",
         "distribution": "internal",
-        "image": "default"
+        "image": "ubuntu-22.04-jdk-17-ndk-r21e"
       }
     },
     "preview2": {

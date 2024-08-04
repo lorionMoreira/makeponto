@@ -18,6 +18,11 @@ public interface ConfigRecordRepository extends JpaRepository<ConfigRecord, Inte
 
     @Modifying
     @Transactional
+    @Query("UPDATE ConfigRecord c SET c.status = true")
+    int enableAllAutomations();
+
+    @Modifying
+    @Transactional
     @Query("UPDATE ConfigRecord c SET c.status = false WHERE c.type = :type")
     int disableAutomationByType(String type);
 

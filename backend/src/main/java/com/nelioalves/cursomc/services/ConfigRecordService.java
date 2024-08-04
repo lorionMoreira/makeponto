@@ -29,7 +29,10 @@ public class ConfigRecordService {
     public int disableAllAutomations() {
         return configRecordRepository.disableAllAutomations();
     }
-
+    // disable all the automations
+    public int enableAllAutomations() {
+        return configRecordRepository.enableAllAutomations();
+    }
     //disable by type
     public int disableAutomationByType(String type) {
         return configRecordRepository.disableAutomationByType(type);
